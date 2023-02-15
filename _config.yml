@@ -1,6 +1,6 @@
-title: Your awesome title
-description: balabala
-github_username: jekyll
+title: ANON's blog
+description: 
+github_username: freezym
 permalink: /:title.html
 theme: minima
 plugins:
