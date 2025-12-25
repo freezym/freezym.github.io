@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa's Gift Registry | Official</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a0f00;
+            background-image: 
+                url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1932&auto=format&fit=crop'),
+                linear-gradient(rgba(26, 15, 0, 0.85), rgba(26, 15, 0, 0.95));
+            background-blend-mode: overlay;
+            background-position: center;
+            background-attachment: fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 153, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+            margin-bottom: 10px;
+            font-family: 'Georgia', serif;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #f8f9fa;
+            margin-bottom: 20px;
+        }
+
+        .santa-note {
+            font-style: italic;
+            color: #ffd699;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* Form Styles */
+        .gift-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #ffddaa;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid #ff9933;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff6600, #ffcc00);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid #00ff66;
+        }
+
+        .success-message h2 {
+            color: #00ff66;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
+        }
+
+        .success-message p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #f8f9fa;
+        }
+
+        /* Decorations */
+        .decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+            font-size: 1.5rem;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .submit-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decorations" id="snow-container"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">🎅 Santa's Official Gift Registry</h1>
+            <p class="subtitle">Register to receive your magical Christmas gift!</p>
+            <p class="santa-note">Dear little friend, fill out this special form and I'll make sure to bring you a wonderful gift on Christmas Eve. Remember to be good and believe in the magic of Christmas! - Santa Claus 🎄</p>
+        </header>
+
+        <form id="giftRegistrationForm" class="gift-form">
+            <div class="form-group">
+                <label for="childName">Child's Full Name</label>
+                <input type="text" id="childName" required placeholder="e.g. Emma Johnson">
+            </div>
+
+            <div class="form-group">
+                <label for="childAge">Child's Age</label>
+                <input type="number" id="childAge" min="1" max="12" required placeholder="e.g. 7">
+            </div>
+
+            <div class="form-group">
+                <label for="childAddress">Home Address (where to deliver the gift)</label>
+                <input type="text" id="childAddress" required placeholder="123 Christmas Lane, North Pole, 12345">
+            </div>
+            <div class="form-group">
+                <label for="entryInstructions">How to Enter the House</label>
+                <textarea id="entryInstructions" required placeholder="e.g. The front door key is under the doormat, or leave the window open for me!"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send to Santa 🎁</button>
+        </form>
+
+        <div id="successMessage" class="success-message">
+            <h2>🎄 Registration Successful! 🎄</h2>
+            <p>Dear <span id="displayName"></span>, your gift request has been received by Santa's workshop!</p>
+            <p>We've noted your age: <span id="displayAge"></span>, and your address: <span id="displayAddress"></span>.</p>
+            <p><strong>Entry Instructions:</strong> <span id="displayEntry"></span></p>
+            <p>Santa's elves are already preparing your gift. Be good and wait for Christmas Eve!</p>
+            <p style="margin-top: 20px; font-weight: bold;">Ho Ho Ho! - Santa</p>
+        </div>
+    </div>
+
+    <script>
+        // Snowfall animation
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            const numberOfSnowflakes = 50;
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.textContent = '❄️';
+                
+                // Random position and animation
+                const size = Math.random() * 15 + 10;
+                snowflake.style.fontSize = `${size}px`;
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                snowflake.style.animationDelay = `${Math.random() * 10}s`;
+                
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Form submission handling
+        document.getElementById('giftRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values (包含新增的字段)
+            const name = document.getElementById('childName').value;
+            const age = document.getElementById('childAge').value;
+            const address = document.getElementById('childAddress').value;
+            const entryInstructions = document.getElementById('entryInstructions').value;
+            
+            // Display success message with user's info (显示新增的字段)
+            document.getElementById('displayName').textContent = name;
+            document.getElementById('displayAge').textContent = age;
+            document.getElementById('displayAddress').textContent = address;
+            document.getElementById('displayEntry').textContent = entryInstructions;
+            
+            // Hide form and show success message
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+
+        // Initialize snow animation when page loads
+        window.onload = createSnowflakes;
+    </script>
+</body>
+</html>
